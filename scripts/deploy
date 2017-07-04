@@ -1,0 +1,8 @@
+#!/bin/bash
+set -ue
+container_name=www.dontferget.club
+echo deploying
+eval $(docker-machine env www.dontferget.club)
+docker rm -f $container_name || :
+docker run -d --restart always -p 80:80 --name $container_name nginx
+echo done
