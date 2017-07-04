@@ -1,8 +1,10 @@
 #!/bin/bash
 set -ue
 container_name=www.dontferget.club
+image_name=dontferget-wisp
 echo deploying
 eval $(docker-machine env www.dontferget.club)
+docker build -t $image_name .
 docker rm -f $container_name || :
-docker run -d --restart always -p 80:80 --name $container_name nginx
+docker run -d --restart always -p 80:80 --name $container_name $image_name
 echo done
