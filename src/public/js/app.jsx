@@ -1,12 +1,17 @@
 import React, {Component} from 'react'
 import TodoItem from './todo-item.jsx'
-export default class Todo extends Component {
+export default class App extends Component {
   constructor (props) {
     super(props)
-    this.state = {todos: [
-      {title: 'get eggs', completed: false},
-      {title: 'research physics', completed: true},
-    ]}
+    this.state = {todos: []}
+  }
+  componentDidMount () {
+    setTimeout(() => {
+      this.setState({todos: [
+        {title: 'get eggs', completed: false},
+        {title: 'research physics', completed: true},
+      ]})
+    }, 2000)
   }
   render () {
     return (
