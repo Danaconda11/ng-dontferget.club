@@ -10,4 +10,4 @@ docker run -it \
   -w /app \
   -v $PWD/src:/app \
   -p 80:80 \
-  node bash
+  node npm start
