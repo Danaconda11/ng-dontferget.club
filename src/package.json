@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
+    "build:js": "webpack -d",
+    "build:production": "webpack -p",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,5 +15,14 @@
   "dependencies": {
     "express": "^4.15.3",
     "express-static": "^1.2.4"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-react": "^6.24.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "webpack": "^3.0.0"
   }
 }
