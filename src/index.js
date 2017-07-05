@@ -1,4 +1,5 @@
-require('http').createServer((req, res) => {
-  res.writeHead(200, {'Content-Type': 'text/plain'})
-  res.end('running :)')
-}).listen(80, () => console.log('listening on :80'))
+const express = require('express')
+const serve_static = require('express-static')
+let app = express()
+app.use(serve_static(__dirname+'/public'))
+app.listen(80, () => console.log('listening on :80'))
