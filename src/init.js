@@ -1,8 +1,10 @@
-const mongo = require('mongo')
-
-let create_dummy_records = () => {
-  let conn = mongo.get_connection()
-
+const mongo = require('./mongo')
+let create_dummy_records = ()=> {
+  return mongo.connect().then(db=> {
+    return db.createCollection("test", {}).then(()=> {
+      return db.collection('test').insertOne({name : 'test'})
+    })
+  })
 }
 
 module.exports = () => {

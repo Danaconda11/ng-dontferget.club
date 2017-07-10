@@ -1,0 +1,4 @@
+#!/bin/bash
+set -ue
+apt-get install docker
+apt-get install docker-machine

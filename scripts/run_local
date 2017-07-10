@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 set -ue
 eval $(docker-machine env -u)
 docker rm -f devmongo || :
