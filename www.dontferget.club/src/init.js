@@ -1,3 +1,4 @@
+//test
 const mongo = require('./mongo')
 let create_dummy_records = ()=> {
   return mongo.connect().then(db=> {
