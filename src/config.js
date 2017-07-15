@@ -1,6 +1,8 @@
+let env = process.env
 module.exports = {
-  debug: process.env.DEBUG,
+  debug: env.DEBUG,
   http_port: 80,
-  mongo_host: process.env.MONGO_HOST,
-  mongo_database: process.env.MONGO_DATABASE
+  mongo_host: env.MONGO_HOST,
+  mongo_database: env.MONGO_DATABASE,
+  auto_login: env.DEBUG,
 }
