@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker run -d --name db.dontferget.club --net host mongo
+docker exec -it devmongo mongo localhost/todo
