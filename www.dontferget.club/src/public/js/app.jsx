@@ -6,12 +6,14 @@ export default class App extends Component {
     this.state = {todos: []}
   }
   componentDidMount () {
-    setTimeout(() => {
-      this.setState({todos: [
-        {title: 'get eggs', completed: false},
-        {title: 'research physics', completed: true},
-      ]})
-    }, 2000)
+    fetch('/api/todos')
+      .then(res=> {
+        return res.json()
+      }).then(todos=> {
+        this.setState({todos})
+      }).catch(e=> {
+        console.log(e)
+      })
   }
   render () {
     return (
