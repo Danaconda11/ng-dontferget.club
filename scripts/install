@@ -1,6 +1,17 @@
 #!/bin/bash
 set -ue
-apt-get install docker
-apt-get install docker-machine
+function global_install {
+  if [ -f /etc/arch-release ]; then
+    cmd='pacman -S'
+  elif which apt-get 2>/dev/null >/dev/null; then
+    cmd='apt-get install'
+  else
+    cmd='echo SKIPPING: No known package manager && :'
+  fi
+  echo Installing $1
+  eval "sudo $cmd $1"
+}
+global_install docker
+global_install docker-machine
 cd src
 npm install -D
