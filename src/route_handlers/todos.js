@@ -1,11 +1,11 @@
 const mongo = require('../mongo')
 
 var get_all = (req, res, next) => {
-  mongo.connect().then(db=> {
+  mongo.connect().then(db => {
     return db.collection('test').find().toArray()
-  }).then(docs=> {
+  }).then(docs => {
     res.json(docs)
-  }).catch(e=> {
+  }).catch(e => {
     res.status(500).send(e)
   })
 }
