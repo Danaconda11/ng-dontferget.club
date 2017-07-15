@@ -2,3 +2,5 @@
 set -ue
 apt-get install docker
 apt-get install docker-machine
+cd src
+npm install -D
