@@ -13,5 +13,6 @@ function global_install {
 }
 global_install docker
 global_install docker-machine
+docker pull node
 cd src
 npm install -D
