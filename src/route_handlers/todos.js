@@ -1,6 +1,7 @@
 const mongo = require('../mongo')
+let E = module.exports
 
-var get_all = (req, res, next) => {
+E.get_all = (req, res, next) => {
   mongo.connect().then(db => {
     return db.collection('test').find().toArray()
   }).then(docs => {
@@ -8,8 +9,4 @@ var get_all = (req, res, next) => {
   }).catch(e => {
     res.status(500).send(e)
   })
-}
-
-module.exports = {
-    get_all
 }
