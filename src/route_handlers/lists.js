@@ -70,7 +70,7 @@ let sync_list = (api, user, list) => {
         {wunderlist_id: list_doc.wunderlist_id},
         {
           $set: _.pick(list_doc, ['user', 'wunderlist_id', 'title']),
-          $addToSet: {items: list_doc.items},
+          $addToSet: {items: {$each: list_doc.items}},
         },
         {upsert: true})
     }).then(() => {
@@ -98,3 +98,10 @@ E.import = (req, res, next) => mongo.connect().then(db => {
     })
   })
 })
+
+E.get_all = (req, res, next) => mongo.connect().then(db => {
+  return db.collection('lists').find({user: req.user._id}).toArray()
+  .then(lists => {
+    res.json(lists)
+  })
+}).catch(next)
