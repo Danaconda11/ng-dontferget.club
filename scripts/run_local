@@ -8,6 +8,9 @@ docker run -it \
   -e MONGO_HOST=mongohost \
   -e MONGO_DATABASE=todo \
   -e DEBUG=true \
+  -e WUNDERLIST_CLIENT_ID=468e63e2114a73908b17 \
+  -e WUNDERLIST_CLIENT_SECRET=$(./scripts/secret wunderlist/secret) \
+  -e SESSION_SECRET=foobar \
   -w /app \
   -v $PWD/src:/app \
   -p 80:80 \
