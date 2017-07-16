@@ -52,7 +52,3 @@ E.view_account = (req, res, next) => {
       })
   }).catch(next)
 }
-
-E.login_page = (req, res, next) => {
-  files.send(res, 'login.html').catch(e => next(e))
-}

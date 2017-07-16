@@ -21,6 +21,7 @@ export default class App extends Component {
         <input placeholder="Add a todo"/>
         <h2>To do</h2>
         {this.state.todos.map(todo => <TodoItem item={todo}/>)}
+        <a href="/account">view account</a>
       </div>
     )
   }

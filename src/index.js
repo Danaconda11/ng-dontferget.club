@@ -22,7 +22,8 @@ if (config.auto_login) {
 app.use(body_parser.urlencoded({extended: false}))
 app.get('/', auth.require_auth({otherwise: '/login'}),
   util.redirect('/lists'))
-app.get('/login', auth.require_no_auth({otherwise: '/'}), user.login_page)
+app.get('/login', auth.require_no_auth({otherwise: '/'}),
+  files.send_file('login.html'))
 app.post('/login', user.login)
 app.get('/logout', user.logout)
 app.use(auth.require_auth({otherwise: '/login'}))
@@ -30,6 +31,7 @@ app.get('/auth/wunderlist', passport.authenticate('wunderlist'))
 app.get('/auth/wunderlist/callback',
   passport.authenticate('wunderlist'),
   util.redirect('/account'))
+app.get('/lists', files.send_file('index.html'))
 app.get('/account', user.view_account)
 app.get('/api/todos', todos.get_all)
 app.listen(config.http_port,
