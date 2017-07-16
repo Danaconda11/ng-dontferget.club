@@ -36,11 +36,17 @@ E.view_account = (req, res, next) => {
     return db.collection('users')
       .findOne({username: req.user.username}).then(user => {
         let html = `
+          <script src="/js/account.js"></script>
           <h1>Account</h1>
           <p>Username: ${user.username}</p>`
         let wunderlist_id = _(user).get('external.wunderlist.id')
         if (wunderlist_id) {
-          html += `<p>Wunderlist ID: ${wunderlist_id}`
+          html += `
+            <p>
+              Wunderlist ID: ${wunderlist_id}
+              <a href="#" onclick="sync_wunderlist(event)">sync lists</a>
+              <span class="sync-status" hidden></span>
+            </p>`
         } else {
           html += `
             <p>

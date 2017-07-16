@@ -2,6 +2,7 @@ const express = require('express')
 const config = require('./config')
 const init = require('./init')
 const todos = require('./route_handlers/todos')
+const lists = require('./route_handlers/lists')
 const auth = require('./middleware/auth')
 const user = require('./route_handlers/user')
 const files = require('./files')
@@ -34,6 +35,7 @@ app.get('/auth/wunderlist/callback',
 app.get('/lists', files.send_file('index.html'))
 app.get('/account', user.view_account)
 app.get('/api/todos', todos.get_all)
+app.post('/api/lists/import', lists.import)
 app.listen(config.http_port,
   () => console.log(`Listening on 0.0.0.0:${config.http_port}`))
 if (config.debug) {
