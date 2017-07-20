@@ -1,26 +1,18 @@
-const mongo = require('../mongo')
+const todos = require('../todos')
 E = module.exports
-E.find_by_id = id_string => {
-  return mongo.connect().then(db=> {
-    return db.collection('todos').findOne({_id: mongo.ObjectId(id_string)})
-  })
-}
-E.insert = todo => {
-  return mongo.connect().then(db=> {
-    return db.collection('todos').insert(todo)
-  })
-}
 E.add = (req, res, next) => {
-  console.log(`in node now`, req.body)
-  return E.insert(req.body).then(insert=> {
-    return E.find_by_id(insert.insertedIds[0])
+  return todos.insert(req.body).then(insert=> {
+    return todos.find_by_id(insert.insertedIds[0])
   }).then(todo=> {
     res.json(todo)
   }).catch(err=> {
-    console.log(err)
-    res.status(500).json({
-      error: err.message,
-      stack: err.stack,
-    })
+    next(err)
+  })
+}
+E.get_all = (req, res, next) => {
+  return todos.find_all().then(docs=> {
+    res.json(docs)
+  }).catch(err=> {
+    next(err)
   })
 }

@@ -36,7 +36,8 @@ app.get('/lists', files.send_file('index.html'))
 app.get('/account', user.view_account)
 app.get('/api/lists', lists.get_all)
 app.post('/api/lists/import', lists.import)
-app.post('/api/todos', todos.add_todo)
+app.post('/api/todos', todos.add)
+app.get('/api/todos', todos.get_all)
 app.listen(config.http_port,
   () => console.log(`Listening on 0.0.0.0:${config.http_port}`))
 if (config.debug) {
