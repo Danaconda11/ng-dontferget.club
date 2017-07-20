@@ -1,4 +1,4 @@
-//test2
+
 const mongo = require('./mongo')
 E = module.exports
 E.find_by_id = id_string => {
