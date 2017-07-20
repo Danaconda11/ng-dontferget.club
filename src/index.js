@@ -9,7 +9,7 @@ const body_parser = require('body-parser')
 const passport = require('./passport')
 const util = require('./route_handlers/util')
 const session = require('express-session')
-const add = require('./route_handlers/add')
+const todos = require('./route_handlers/todos')
 let app = express()
 app.use(files.static())
 app.use(session({resave: false, saveUninitialized: false,
@@ -20,6 +20,7 @@ if (config.auto_login) {
   app.use(util.auto_login)
 }
 app.use(body_parser.urlencoded({extended: false}))
+app.use(body_parser.json())
 app.get('/', auth.require_auth({otherwise: '/login'}),
   util.redirect('/lists'))
 app.get('/login', auth.require_no_auth({otherwise: '/'}),
@@ -35,6 +36,7 @@ app.get('/lists', files.send_file('index.html'))
 app.get('/account', user.view_account)
 app.get('/api/lists', lists.get_all)
 app.post('/api/lists/import', lists.import)
+app.post('/add_todo', todos.add_todo)
 app.listen(config.http_port,
   () => console.log(`Listening on 0.0.0.0:${config.http_port}`))
 if (config.debug) {
@@ -42,4 +44,3 @@ if (config.debug) {
     console.error(e)
   })
 }
-app.post('/add_todo', add.add_todo)
