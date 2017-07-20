@@ -15,10 +15,23 @@ export default class App extends Component {
         console.log(e)
       })
   }
+  addTodo() {
+    var todo = document.getElementById('todo_input').value
+    fetch('/add_todo', {
+      method: 'POST',
+      body: {
+        title: todo,
+        completed: false
+      }
+    }).then(()=> {
+      console.log('API call completed')
+    })
+  }
   render () {
     return (
       <div>
-        <input placeholder="Add a list"/>
+        <input id='todo_input' placeholder="Add a list"/>
+        <button id='add' onClick={this.addTodo}>add</button>
         <h1>To do</h1>
         {this.state.lists.map(list => <List key={list.id} list={list}/>)}
         <a href="/account">view account</a>

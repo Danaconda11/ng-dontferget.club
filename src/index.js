@@ -9,7 +9,7 @@ const body_parser = require('body-parser')
 const passport = require('./passport')
 const util = require('./route_handlers/util')
 const session = require('express-session')
-
+const add = require('./route_handlers/add')
 let app = express()
 app.use(files.static())
 app.use(session({resave: false, saveUninitialized: false,
@@ -42,3 +42,4 @@ if (config.debug) {
     console.error(e)
   })
 }
+app.post('/add_todo', add.add_todo)
