@@ -25,13 +25,12 @@ export default class App extends Component {
   addTodo() {
     let headers = new Headers()
     headers.append('Content-Type', 'application/json')
-    fetch('/add_todo', {
+    fetch('/api/todos', {
       method: 'POST',
       body: JSON.stringify({title: this.state.value, completed: false}),
       headers: headers
     }).then(()=> {
       console.log('API call completed')
-      
     }).catch(err=> {
       console.log(err)
     })
