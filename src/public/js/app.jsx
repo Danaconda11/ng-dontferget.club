@@ -5,11 +5,13 @@ export default class App extends Component {
     super(props)
     this.state = {lists: []}
   }
-  componentDidMount () {
-    fetch('/api/lists')
+  componentDidMount() {
+    fetch('/api/todos')
       .then(res=> {
         return res.json()
       }).then(lists=> {
+        console.log(`lists`, lists)
+        console.log(`lists typeof`, typeof(lists))
         this.setState({lists})
       }).catch(e=> {
         console.log(e)
@@ -19,7 +21,6 @@ export default class App extends Component {
     this.setState({value: event.target.value});
   }
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
   }
   addTodo() {
@@ -29,13 +30,12 @@ export default class App extends Component {
       method: 'POST',
       body: JSON.stringify({title: this.state.value, completed: false}),
       headers: headers
-    }).then(()=> {
-      console.log('API call completed')
     }).catch(err=> {
       console.log(err)
     })
   }
   render () {
+    console.log('this.state.lists in render', this.state.lists)
     return (
       <div>
         <form onSubmit={e=> this.handleSubmit(e)}>
@@ -43,7 +43,7 @@ export default class App extends Component {
           <button id='add' onClick={()=> this.addTodo()}>add</button>
         </form>
         <h1>To do</h1>
-        {this.state.lists.map(list => <List key={list.id} list={list}/>)}
+        {this.state.lists.map(list => <List key={list._id} list={list}/>)}
         <a href='/account'>view account</a>
       </div>
     )
