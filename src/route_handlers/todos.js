@@ -16,3 +16,12 @@ E.get_all = (req, res, next) => {
     next(err)
   })
 }
+E.remove = (req, res, next)=> {
+  console.log(`request body in todos`, req.body);
+  return todos.remove(req.body).then(result=> {
+    console.log(`route handler result`, result);
+    res.json(result)
+  }).catch(err=> {
+    next(err)
+  })
+}

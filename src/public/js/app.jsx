@@ -41,7 +41,7 @@ export default class App extends Component {
       console.log(err)
     })
   }
-  render () {
+  render() {
     return (
       <div>
         <form onSubmit={e=> this.handleSubmit(e)}>
