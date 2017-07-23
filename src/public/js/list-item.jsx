@@ -7,7 +7,7 @@ export default class ListItem extends Component {
   render () {
     return (
       <li>
-        <input type="checkbox" checked={this.state.item.completed}/>
+        <input type="checkbox" defaultChecked={this.state.item.completed}/>
         <span>{this.state.item.title}</span>
       </li>
     )

@@ -1,18 +1,18 @@
 import React, {Component} from 'react'
-import List from './list.jsx'
+import ListItem from './list-item.jsx'
 export default class App extends Component {
   constructor (props) {
     super(props)
-    this.state = {lists: []}
+    this.state = {todos: []}
   }
   componentDidMount() {
     fetch('/api/todos')
       .then(res=> {
         return res.json()
-      }).then(lists=> {
-        console.log(`lists`, lists)
-        console.log(`lists typeof`, typeof(lists))
-        this.setState({lists})
+      }).then(todos=> {
+        console.log(`todos`, todos)
+        console.log(`todos typeof`, typeof(todos))
+        this.setState({todos: todos})
       }).catch(e=> {
         console.log(e)
       })
@@ -35,7 +35,7 @@ export default class App extends Component {
     })
   }
   render () {
-    console.log('this.state.lists in render', this.state.lists)
+    console.log('this.state.todos in render', this.state.todos)
     return (
       <div>
         <form onSubmit={e=> this.handleSubmit(e)}>
@@ -43,7 +43,9 @@ export default class App extends Component {
           <button id='add' onClick={()=> this.addTodo()}>add</button>
         </form>
         <h1>To do</h1>
-        {this.state.lists.map(list => <List key={list._id} list={list}/>)}
+        <ul>
+        {this.state.todos.map(item => <ListItem key={item._id} item={item}/>)}
+        </ul>
         <a href='/account'>view account</a>
       </div>
     )
