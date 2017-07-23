@@ -8,20 +8,22 @@ export default class ListItem extends Component {
     this.setState({pending_completion: e.target.checked})
   }
   remove_todo() {
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    let todo_text = this.refs.todo_title.innerHTML;
     fetch('/api/todos', {
       method: 'DELETE',
-      body: JSON.stringify({title: this.refs.todo_title.innerHTML})
+      body: JSON.stringify({title: this.refs.todo_title.innerHTML}),
+      headers: headers
     }).then(res=> {
-      console.log(`back in component`, res)
+      this.props.parentMethod()
+      alert(`ToDo: ${todo_text} has been removed from the list`)
     }).catch(e=> {
       console.log(e)
     })
   }
-  complete_todo(){
-    if(!this.state.pending_completion) {
-      return null
-    }
-    return <button onClick={()=> this.remove_todo()}>Remove</button>
+  complete_todo() {
+    return this.state.pending_completion ? <button onClick={()=> this.remove_todo()}>Remove</button> : null
   }
   render() {
     let confirm_button = this.complete_todo()

@@ -4,6 +4,7 @@ export default class App extends Component {
   constructor (props) {
     super(props)
     this.state = {todos: []}
+    this.get_todos = this.get_todos.bind(this)
   }
   get_todos() {
     fetch('/api/todos')
@@ -26,7 +27,7 @@ export default class App extends Component {
     this.refs.todo_input.value = ''
   }
   componentDidUpdate() {
-    console.log(`component has updated`);
+    console.log(`component updated`);
   }
   addTodo() {
     let headers = new Headers()
@@ -50,7 +51,7 @@ export default class App extends Component {
         </form>
         <h1>To do</h1>
         <ul>
-        {this.state.todos.map(item => <ListItem key={item._id} item={item}/>)}
+        {this.state.todos.map(item => <ListItem parentMethod={this.get_todos} key={item._id} item={item}/>)}
         </ul>
         <a href='/account'>view account</a>
       </div>
