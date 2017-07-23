@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 export default class ListItem extends Component {
   constructor (props) {
     super(props)
-    this.state = {item: props.item, _id: props.item._id}
+    this.state = {item: props.item}
   }
   make_button(e) {
     this.setState({pending_completion: e.target.checked})
@@ -11,14 +11,13 @@ export default class ListItem extends Component {
     let headers = new Headers()
     headers.append('Content-Type', 'application/json')
     let todo_id = this.state.item._id
-    console.log(`this is the id`, todo_id);
     fetch('/api/todos', {
       method: 'DELETE',
       body: JSON.stringify({_id: todo_id}),
       headers: headers
     }).then(res=> {
       this.props.parentMethod()
-      alert(`ToDo: '${this.refs.todo_text.innerHTML}' has been removed from the list`)
+      alert(`ToDo: '${his.state.item.title}' has been removed from the list`)
     }).catch(e=> {
       console.log(e)
     })
