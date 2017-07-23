@@ -5,7 +5,7 @@ export default class App extends Component {
     super(props)
     this.state = {todos: []}
   }
-  componentDidMount() {
+  get_todos() {
     fetch('/api/todos')
       .then(res=> {
         return res.json()
@@ -17,11 +17,17 @@ export default class App extends Component {
         console.log(e)
       })
   }
+  componentDidMount() {
+    this.get_todos()
+  }
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({value: event.target.value})
   }
   handleSubmit(event) {
     event.preventDefault();
+  }
+  componentDidUpdate() {
+    console.log(`component has updated`);
   }
   addTodo() {
     let headers = new Headers()
@@ -30,12 +36,13 @@ export default class App extends Component {
       method: 'POST',
       body: JSON.stringify({title: this.state.value, completed: false}),
       headers: headers
+    }).then(()=> {
+      this.get_todos()
     }).catch(err=> {
       console.log(err)
     })
   }
   render () {
-    console.log('this.state.todos in render', this.state.todos)
     return (
       <div>
         <form onSubmit={e=> this.handleSubmit(e)}>
