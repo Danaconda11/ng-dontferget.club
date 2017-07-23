@@ -18,6 +18,6 @@ E.find_all = () => {
 }
 E.remove = doc => {
   return mongo.connect().then(db=> {
-    return db.collection('todos').remove({title: doc.title})
+    return db.collection('todos').remove({_id:  mongo.ObjectId(doc._id)})
   })
 }

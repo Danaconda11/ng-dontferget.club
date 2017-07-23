@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 export default class ListItem extends Component {
   constructor (props) {
     super(props)
-    this.state = {item: props.item}
+    this.state = {item: props.item, _id: props.item._id}
   }
   make_button(e) {
     this.setState({pending_completion: e.target.checked})
@@ -10,14 +10,15 @@ export default class ListItem extends Component {
   remove_todo() {
     let headers = new Headers()
     headers.append('Content-Type', 'application/json')
-    let todo_text = this.refs.todo_title.innerHTML;
+    let todo_id = this.state.item._id
+    console.log(`this is the id`, todo_id);
     fetch('/api/todos', {
       method: 'DELETE',
-      body: JSON.stringify({title: this.refs.todo_title.innerHTML}),
+      body: JSON.stringify({_id: todo_id}),
       headers: headers
     }).then(res=> {
       this.props.parentMethod()
-      alert(`ToDo: ${todo_text} has been removed from the list`)
+      alert(`ToDo: '${this.refs.todo_text.innerHTML}' has been removed from the list`)
     }).catch(e=> {
       console.log(e)
     })
@@ -30,7 +31,7 @@ export default class ListItem extends Component {
     return (
       <li>
         <input type="checkbox" defaultChecked={this.state.item.completed} onClick={(e)=> this.make_button(e)}/>
-        <span ref='todo_title'>{this.state.item.title}</span>
+        <span ref='todo_text'>{this.state.item.title}</span>
         {confirm_button}
       </li>
     )
