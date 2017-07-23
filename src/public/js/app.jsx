@@ -10,8 +10,6 @@ export default class App extends Component {
       .then(res=> {
         return res.json()
       }).then(todos=> {
-        console.log(`todos`, todos)
-        console.log(`todos typeof`, typeof(todos))
         this.setState({todos: todos})
       }).catch(e=> {
         console.log(e)
@@ -24,7 +22,8 @@ export default class App extends Component {
     this.setState({value: event.target.value})
   }
   handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault()
+    this.refs.todo_input.value = ''
   }
   componentDidUpdate() {
     console.log(`component has updated`);
@@ -46,7 +45,7 @@ export default class App extends Component {
     return (
       <div>
         <form onSubmit={e=> this.handleSubmit(e)}>
-          <input id='todo_input' placeholder='Add a list' onChange={e=> this.handleChange(e)}/>
+          <input id='todo_input' ref='todo_input' placeholder='Add a todo' onChange={e=> this.handleChange(e)}/>
           <button id='add' onClick={()=> this.addTodo()}>add</button>
         </form>
         <h1>To do</h1>
