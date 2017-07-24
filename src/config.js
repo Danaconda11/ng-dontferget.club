@@ -10,4 +10,5 @@ module.exports = {
     client_secret: e.WUNDERLIST_CLIENT_SECRET,
   },
   session_secret: e.SESSION_SECRET,
+  lichess_id: e.LICHESS_ID
 }

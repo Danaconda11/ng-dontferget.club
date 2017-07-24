@@ -39,6 +39,7 @@ app.post('/api/lists/import', lists.import)
 app.post('/api/todos', todos.add)
 app.get('/api/todos', todos.get_all)
 app.delete('/api/todos/:_id', todos.remove)
+app.get('/games/chess', files.send_file('index.html'))
 app.listen(config.http_port,
   () => console.log(`Listening on 0.0.0.0:${config.http_port}`))
 if (config.debug) {
