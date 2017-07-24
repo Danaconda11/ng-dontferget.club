@@ -10,14 +10,12 @@ export default class ListItem extends Component {
   remove_todo() {
     let headers = new Headers()
     headers.append('Content-Type', 'application/json')
-    let todo_id = this.state.item._id
-    fetch('/api/todos', {
+    fetch(`/api/todos/${this.state.item._id}`, {
       method: 'DELETE',
-      body: JSON.stringify({_id: todo_id}),
       headers: headers
     }).then(res=> {
-      this.props.parentMethod()
-      alert(`ToDo: '${his.state.item.title}' has been removed from the list`)
+      this.props.itemRemoved()
+      alert(`ToDo: '${this.state.item.title}' has been removed from the list`)
     }).catch(e=> {
       console.log(e)
     })

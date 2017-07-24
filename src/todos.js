@@ -16,8 +16,8 @@ E.find_all = () => {
     return db.collection('todos').find({}).toArray()
   })
 }
-E.remove = doc => {
+E.remove = _id => {
   return mongo.connect().then(db=> {
-    return db.collection('todos').remove({_id:  mongo.ObjectId(doc._id)})
+    return db.collection('todos').remove({_id:  mongo.ObjectId(_id)})
   })
 }

@@ -17,8 +17,7 @@ E.get_all = (req, res, next)=> {
   })
 }
 E.remove = (req, res, next)=> {
-    return todos.remove(req.body).then(result=> {
-    console.log(`route handler result`, res);
+    return todos.remove(req.params._id).then(result=> {
     res.json(result)
   }).catch(err=> {
     next(err)

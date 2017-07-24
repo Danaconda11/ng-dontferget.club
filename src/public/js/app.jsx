@@ -5,6 +5,9 @@ export default class App extends Component {
     super(props)
     this.state = {todos: []}
     this.get_todos = this.get_todos.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.addTodo = this.addTodo.bind(this)
   }
   get_todos() {
     fetch('/api/todos')
@@ -22,7 +25,7 @@ export default class App extends Component {
   handleChange(event) {
     this.setState({value: event.target.value})
   }
-  handleSubmit(event) {
+  handleSubmit() {
     event.preventDefault()
     this.refs.todo_input.value = ''
   }
@@ -45,13 +48,13 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={e=> this.handleSubmit(e)}>
-          <input id='todo_input' ref='todo_input' placeholder='Add a todo' onChange={e=> this.handleChange(e)}/>
-          <button id='add' onClick={()=> this.addTodo()}>add</button>
+        <form onSubmit={this.handleSubmit}>
+          <input id='todo_input' ref='todo_input' placeholder='Add a todo' onChange={this.handleChange}/>
+          <button id='add' onClick={this.addTodo}>add</button>
         </form>
         <h1>To do</h1>
         <ul>
-        {this.state.todos.map(item => <ListItem parentMethod={this.get_todos} key={item._id} item={item}/>)}
+        {this.state.todos.map(item => <ListItem itemRemoved={this.get_todos} key={item._id} item={item}/>)}
         </ul>
         <a href='/account'>view account</a>
       </div>
