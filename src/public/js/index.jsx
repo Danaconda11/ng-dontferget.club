@@ -5,7 +5,6 @@ import {Router, Route} from 'react-router-dom'
 import Chess from './chess.jsx'
 import createBrowserHistory from 'history/createBrowserHistory'
 const newHistory = createBrowserHistory()
-
 render(
   <Router history={newHistory} >
     <div>

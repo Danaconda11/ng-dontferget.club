@@ -10,6 +10,7 @@ const passport = require('./passport')
 const util = require('./route_handlers/util')
 const session = require('express-session')
 const todos = require('./route_handlers/todos')
+const chess = require('./route_handlers/lichess')
 let app = express()
 app.use(files.static())
 app.use(session({resave: false, saveUninitialized: false,
@@ -40,6 +41,7 @@ app.post('/api/todos', todos.add)
 app.get('/api/todos', todos.get_all)
 app.delete('/api/todos/:_id', todos.remove)
 app.get('/games/chess', files.send_file('index.html'))
+app.get('/api/lichess', chess.fetch_user)
 app.listen(config.http_port,
   () => console.log(`Listening on 0.0.0.0:${config.http_port}`))
 if (config.debug) {
