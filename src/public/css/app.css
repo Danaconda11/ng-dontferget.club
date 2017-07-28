@@ -1,0 +1,8 @@
+.app { max-width: 900px; padding: 0 1em; margin: 0 auto; }
+.new-todo {
+  display: inline-flex;
+  padding: 0;
+  border: 0;
+  background: inherit;
+  margin: 0;
+}

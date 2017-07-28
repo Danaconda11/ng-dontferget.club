@@ -49,11 +49,12 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <input id='todo_input' ref='todo_input' placeholder='Add a todo' onChange={this.handleChange}/>
-          <button id='add' onClick={this.addTodo}>add</button>
-        </form>
         <h1>To do</h1>
+        <form onSubmit={this.handleSubmit} className="new-todo">
+          <input ref='todo_input' placeholder='Add a todo' onChange={this.handleChange}
+            autoFocus={true}/>
+          <button className="primary" onClick={this.addTodo}>&#43;</button>
+        </form>
         <ul>
         {this.state.todos.map(item => <ListItem itemRemoved={this.get_todos} key={item._id} item={item}/>)}
         </ul>
