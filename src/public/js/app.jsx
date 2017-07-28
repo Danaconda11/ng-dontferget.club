@@ -40,9 +40,6 @@ export default class App extends Component {
       console.error(err)
     })
   }
-  componentDidUpdate () {
-    console.log(`component updated`);
-  }
   render () {
     return (
       <div>
