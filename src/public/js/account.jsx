@@ -59,7 +59,7 @@ export default class AccountPage extends Component {
             <a href="#" onClick={this.sync_wunderlist}>sync lists</a>{' '}
             {this.state.sync_status && <span>{this.state.sync_status}</span>}
             {this.state.sync_error &&
-              <span class="text-error">{this.state.sync_error}</span>}
+              <span className="text-error">{this.state.sync_error}</span>}
           </p>}
         {!wunderlist_id &&
           <p>
