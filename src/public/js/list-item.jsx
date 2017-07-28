@@ -23,11 +23,18 @@ export default class ListItem extends Component {
     })
   }
   render() {
+    let item = this.state.item
+    let check_id = 'completed-'+item._id
     return (
       <li>
-        <input type="checkbox" defaultChecked={this.state.item.completed} onClick={this.toggle_button}/>
-        <span ref='todo_text'>{this.state.item.title}</span>
-        {this.state.pending_completion && <button onClick={this.remove_todo}>Remove</button>}
+        <span className="input-group">
+          <input type="checkbox" id={check_id}
+            defaultChecked={item.completed} onChange={this.toggle_button}/>
+            <label htmlFor={check_id}/>
+        </span>
+        <span ref='todo_text'>{item.title}</span>{' '}
+        {this.state.pending_completion &&
+          <span className="text-danger" onClick={this.remove_todo}>&times;</span>}
       </li>
     )
   }

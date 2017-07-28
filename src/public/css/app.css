@@ -1,3 +1,4 @@
+.text-danger { color: red; }
 .app { max-width: 900px; padding: 0 1em; margin: 0 auto; }
 .new-todo {
   display: inline-flex;
