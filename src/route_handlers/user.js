@@ -29,32 +29,6 @@ E.logout = (req, res) => {
   res.redirect('/login')
 }
 
-// HACK josh: use react and ajax to render this page once react-router is used
-// note: in proper node code you should never create html like this
-E.view_account = (req, res, next) => {
-  mongo.connect().then(db => {
-    return db.collection('users')
-      .findOne({username: req.user.username}).then(user => {
-        let html = `
-          <script src="/js/account.js"></script>
-          <h1>Account</h1>
-          <p>Username: ${user.username}</p>`
-        let wunderlist_id = _(user).get('external.wunderlist.id')
-        if (wunderlist_id) {
-          html += `
-            <p>
-              Wunderlist ID: ${wunderlist_id}
-              <a href="#" onclick="sync_wunderlist(event)">sync lists</a>
-              <span class="sync-status" hidden></span>
-            </p>`
-        } else {
-          html += `
-            <p>
-              Wunderlist ID:
-              <a href="/auth/wunderlist">link Wunderlist</a>
-            </p>`
-        }
-        res.send(html)
-      })
-  }).catch(next)
+E.logged_in = (req, res) => {
+  res.json(req.user)
 }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import ListItem from './list-item.jsx'
 export default class App extends Component {
   constructor (props) {
@@ -56,7 +57,7 @@ export default class App extends Component {
         <ul>
         {this.state.todos.map(item => <ListItem itemRemoved={this.get_todos} key={item._id} item={item}/>)}
         </ul>
-        <a href='/account'>view account</a>
+        <Link to='/account'>view account</Link>
       </div>
     )
   }

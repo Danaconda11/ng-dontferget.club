@@ -3,13 +3,16 @@ import {render} from 'react-dom'
 import TodoApp from './app.jsx'
 import {Router, Route} from 'react-router-dom'
 import Chess from './chess.jsx'
+import Account from './account.jsx'
 import createBrowserHistory from 'history/createBrowserHistory'
-const newHistory = createBrowserHistory()
-render(
-  <Router history={newHistory} >
-    <div>
-      <Route path="/lists" component={TodoApp}/>
-      <Route path="/games/chess" component={Chess}/>
-    </div>
-  </Router>,
-document.querySelector('#app'))
+
+let newHistory = createBrowserHistory()
+let app =
+<Router history={newHistory}>
+  <div>
+    <Route path="/lists" component={TodoApp}/>
+    <Route path="/games/chess" component={Chess}/>
+    <Route path="/account" component={Account}/>
+  </div>
+</Router>
+render(app, document.querySelector('#app'))
