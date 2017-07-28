@@ -26,9 +26,10 @@ export default class App extends Component {
   handleChange(event) {
     this.setState({value: event.target.value})
   }
-  handleSubmit() {
+  handleSubmit(event) {
     event.preventDefault()
     this.refs.todo_input.value = ''
+    this.addTodo()
   }
   componentDidUpdate() {
     console.log(`component updated`);
@@ -53,7 +54,7 @@ export default class App extends Component {
         <form onSubmit={this.handleSubmit} className="new-todo">
           <input ref='todo_input' placeholder='Add a todo' onChange={this.handleChange}
             autoFocus={true}/>
-          <button className="primary" onClick={this.addTodo}>&#43;</button>
+          <button className="primary">&#43;</button>
         </form>
         <ul>
         {this.state.todos.map(item => <ListItem itemRemoved={this.get_todos} key={item._id} item={item}/>)}
