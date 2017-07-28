@@ -6,11 +6,11 @@ export default class App extends Component {
     super(props)
     this.state = {todos: []}
     this.get_todos = this.get_todos.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.addTodo = this.addTodo.bind(this)
+    this.on_change = this.on_change.bind(this)
+    this.on_submit = this.on_submit.bind(this)
+    this.add_todo = this.add_todo.bind(this)
   }
-  get_todos() {
+  get_todos () {
     fetch('/api/todos')
       .then(res=> {
         return res.json()
@@ -20,44 +20,45 @@ export default class App extends Component {
         console.log(e)
       })
   }
-  componentDidMount() {
+  componentDidMount () {
     this.get_todos()
   }
-  handleChange(event) {
+  on_change (event) {
     this.setState({value: event.target.value})
   }
-  handleSubmit(event) {
+  on_submit (event) {
     event.preventDefault()
     this.refs.todo_input.value = ''
-    this.addTodo()
+    this.add_todo()
   }
-  componentDidUpdate() {
+  componentDidUpdate () {
     console.log(`component updated`);
   }
-  addTodo() {
+  add_todo () {
     let headers = new Headers()
     headers.append('Content-Type', 'application/json')
     fetch('/api/todos', {
       method: 'POST',
       body: JSON.stringify({title: this.state.value, completed: false}),
-      headers: headers
+      headers,
     }).then(()=> {
       this.get_todos()
     }).catch(err=> {
-      console.log(err)
+      console.error(err)
     })
   }
-  render() {
+  render () {
     return (
       <div>
         <h1>To do</h1>
-        <form onSubmit={this.handleSubmit} className="new-todo">
-          <input ref='todo_input' placeholder='Add a todo' onChange={this.handleChange}
-            autoFocus={true}/>
+        <form onSubmit={this.on_submit} className="new-todo">
+          <input ref='todo_input' placeholder='Add a todo'
+            onChange={this.on_change} autoFocus={true}/>
           <button className="primary">&#43;</button>
         </form>
         <ul>
-        {this.state.todos.map(item => <ListItem itemRemoved={this.get_todos} key={item._id} item={item}/>)}
+        {this.state.todos.map(item =>
+          <ListItem itemRemoved={this.get_todos} key={item._id} item={item}/>)}
         </ul>
         <Link to='/account'>view account</Link>
       </div>
