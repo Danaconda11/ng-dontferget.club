@@ -8,7 +8,6 @@ export default class App extends Component {
     this.get_todos = this.get_todos.bind(this)
     this.on_change = this.on_change.bind(this)
     this.on_submit = this.on_submit.bind(this)
-    this.add_todo = this.add_todo.bind(this)
   }
   get_todos () {
     fetch('/api/todos')
@@ -29,12 +28,6 @@ export default class App extends Component {
   on_submit (event) {
     event.preventDefault()
     this.refs.todo_input.value = ''
-    this.add_todo()
-  }
-  componentDidUpdate () {
-    console.log(`component updated`);
-  }
-  add_todo () {
     let headers = new Headers()
     headers.append('Content-Type', 'application/json')
     fetch('/api/todos', {
@@ -46,6 +39,9 @@ export default class App extends Component {
     }).catch(err=> {
       console.error(err)
     })
+  }
+  componentDidUpdate () {
+    console.log(`component updated`);
   }
   render () {
     return (
