@@ -1,40 +1,56 @@
 import React, {Component} from 'react'
+import keys from './keys'
+
 export default class ListItem extends Component {
   constructor (props) {
     super(props)
-    this.state = {item: props.item}
+    this.state = {item: props.item, edit: false}
     this.toggle_button = this.toggle_button.bind(this)
-    this.remove_todo = this.remove_todo.bind(this)
+    this.edit_title = this.edit_title.bind(this)
+    this.save_title = this.save_title.bind(this)
+    this.cancel_edit = this.cancel_edit.bind(this)
   }
-  toggle_button(e) {
-    this.setState({pending_completion: e.target.checked})
+  edit_title (e) { this.setState({edit: true}) }
+  cancel_edit (e) {
+    if (e.keyCode === keys.ESCAPE) {
+      this.setState({edit: false})
+    }
+    if (e.keyCode === keys.ENTER) {
+      this.save_title(e)
+    }
   }
-  remove_todo() {
-    let headers = new Headers()
-    headers.append('Content-Type', 'application/json')
-    fetch(`/api/todos/${this.state.item._id}`, {
-      method: 'DELETE',
-      headers: headers
-    }).then(res=> {
-      this.props.itemRemoved()
-      alert(`ToDo: '${this.state.item.title}' has been removed from the list`)
-    }).catch(e=> {
-      console.log(e)
-    })
+  componentDidUpdate (e) {
+    if (this.state.edit) {
+      this.refs.edit_todo_title.select()
+    }
   }
-  render() {
+  toggle_button (e) {
+    let item = this.state.item
+    item.completed = e.target.checked
+    this.setState({pending_completion: item.completed, item})
+  }
+  save_title (e) {
+    let item = this.state.item
+    item.title = e.target.value
+    this.setState({edit: false, item})
+  }
+  render () {
     let item = this.state.item
     let check_id = 'completed-'+item._id
+    let edit_mode = this.state.edit
     return (
-      <li>
+      <li className={'todo_item' + (item.completed ? ' completed' : '')}>
         <span className="input-group">
           <input type="checkbox" id={check_id}
             defaultChecked={item.completed} onChange={this.toggle_button}/>
             <label htmlFor={check_id}/>
         </span>
-        <span ref='todo_text'>{item.title}</span>{' '}
-        {this.state.pending_completion &&
-          <span className="text-danger" onClick={this.remove_todo}>&times;</span>}
+        {!edit_mode && <span className="clickable" onClick={this.edit_title}>
+          {item.title}</span>}
+        {edit_mode &&
+          <input ref="edit_todo_title" onBlur={this.save_title}
+            onKeyDown={this.cancel_edit}
+            defaultValue={item.title}/>}
       </li>
     )
   }

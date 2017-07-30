@@ -44,12 +44,12 @@ export default class App extends Component {
     return (
       <div>
         <h1>To do</h1>
-        <form onSubmit={this.on_submit} className="new-todo">
+        <form onSubmit={this.on_submit} className="new_todo">
           <input ref='todo_input' placeholder='Add a todo'
             onChange={this.on_change} autoFocus={true}/>
           <button className="primary">&#43;</button>
         </form>
-        <ul>
+        <ul className="todo_items">
         {this.state.todos.map(item =>
           <ListItem itemRemoved={this.get_todos} key={item._id} item={item}/>)}
         </ul>

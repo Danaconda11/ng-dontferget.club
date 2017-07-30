@@ -1,9 +1,13 @@
-.text-danger { color: red; }
+.clickable { cursor: pointer; }
 .app { max-width: 900px; padding: 0 1em; margin: 0 auto; }
-.new-todo {
+.new_todo {
   display: inline-flex;
   padding: 0;
   border: 0;
   background: inherit;
   margin: 0;
 }
+.todo_items { padding: 0; margin: 0 0 1em 0; }
+.todo_item { list-style: none; padding: 1em; border-bottom: 1px solid #ccc; }
+.todo_item input:not([type]) { margin: 0; padding: 0; border: 0; }
+.todo_item.completed { color: #999; text-decoration: line-through; }
