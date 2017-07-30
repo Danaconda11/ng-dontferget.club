@@ -11,6 +11,7 @@ const util = require('./route_handlers/util')
 const session = require('express-session')
 const todos = require('./route_handlers/todos')
 const chess = require('./route_handlers/lichess')
+
 let app = express()
 app.use(files.static())
 app.use(session({resave: false, saveUninitialized: false,
@@ -47,7 +48,7 @@ app.get('/api/lichess', chess.fetch_user)
 app.listen(config.http_port,
   () => console.log(`Listening on 0.0.0.0:${config.http_port}`))
 if (config.debug) {
-  init().catch(e => {
-    console.error(e)
+  init().catch(err => {
+    console.error(err)
   })
 }

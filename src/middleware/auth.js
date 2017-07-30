@@ -1,4 +1,5 @@
 let E = module.exports
+
 E.require_auth = ({otherwise}) => {
   return (req, res, next) => {
     if (req.user) {

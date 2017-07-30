@@ -18,9 +18,9 @@ E.login = (req, res, next) => {
     }).then(() => {
       res.redirect('/')
     })
-  }).catch(e => {
-    console.error(e)
-    next(e)
+  }).catch(err => {
+    console.error(err)
+    next(err)
   })
 }
 

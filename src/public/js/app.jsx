@@ -12,13 +12,13 @@ export default class App extends Component {
   }
   get_todos () {
     fetch('/api/todos')
-      .then(res=> {
-        return res.json()
-      }).then(todos=> {
-        this.setState({todos: todos})
-      }).catch(e=> {
-        console.log(e)
-      })
+    .then(res => {
+      return res.json()
+    }).then(todos => {
+      this.setState({todos: todos})
+    }).catch(err => {
+      console.error(err)
+    })
   }
   componentDidMount () {
     this.get_todos()
@@ -41,9 +41,9 @@ export default class App extends Component {
       method: 'POST',
       body: JSON.stringify({title: this.state.value, completed: false}),
       headers,
-    }).then(()=> {
+    }).then(() => {
       this.get_todos()
-    }).catch(err=> {
+    }).catch(err => {
       console.error(err)
     })
   }
