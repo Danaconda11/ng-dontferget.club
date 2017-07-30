@@ -1,5 +1,16 @@
 .clickable { cursor: pointer; }
 .app { max-width: 900px; padding: 0 1em; margin: 0 auto; }
+.nav_link, .nav_link:visited {
+  display: inline-block;
+  padding: 0.5em;
+  border-bottom: 2px solid transparent;
+  color: #111;
+}
+.nav_link:hover, .nav_link.active {
+  border-color: #111;
+  transition: none;
+  opacity: 1;
+}
 .new_todo {
   display: inline-flex;
   padding: 0;

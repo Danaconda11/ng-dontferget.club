@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
 import ListItem from './list-item.jsx'
+
 export default class App extends Component {
   constructor (props) {
     super(props)
@@ -60,7 +60,6 @@ export default class App extends Component {
         {this.state.todos.map(todo =>
           <ListItem modified={this.todo_modified} key={todo._id} todo={todo}/>)}
         </ul>
-        <Link to='/account'>view account</Link>
       </div>
     )
   }

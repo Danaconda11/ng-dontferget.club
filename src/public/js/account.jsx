@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
 import _ from 'lodash'
 
 export default class AccountPage extends Component {
@@ -65,7 +64,6 @@ export default class AccountPage extends Component {
           <p>
             Wunderlist ID: <a href="/auth/wunderlist">link Wunderlist</a>
           </p>}
-        <Link to="/lists">&larr; home</Link>
       </div>
     )
   }
