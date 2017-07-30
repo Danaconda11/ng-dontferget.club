@@ -41,40 +41,38 @@ let sync_wunderlist = user => mongo.connect().then(db => {
       return sync_list(api, user, list)
     })
   }).then(lists => {
-    let sync = {lists: lists.length, items: 0}
-    lists.forEach(l => {
-      sync.items += l.items.length
-    })
-    return sync
+    return lists.reduce((state, i) => {
+      state.items += i.items.length
+      return state
+    }, {lists: lists.length, items: 0})
   })
 })
 
 let sync_list = (api, user, list) => {
-  let list_doc = {
-    user: user._id,
-    wunderlist_id: list.id,
-    title: list.title,
-  }
-  console.log('syncing', list.title)
   return real_promise(api.http.tasks.forList(list.id)).then(tasks => {
-    list_doc.items = tasks.map(t => {
-      return {
-        wunderlist_id: t.id,
-        completed: t.completed,
-        starred: t.starred,
-        title: t.title,
-      }
-    })
-    return mongo.connect().then(db => {
-      return db.collection('lists').update(
-        {wunderlist_id: list_doc.wunderlist_id},
-        {
-          $set: _.pick(list_doc, ['user', 'wunderlist_id', 'title']),
-          $addToSet: {items: {$each: list_doc.items}},
-        },
+    let db
+    let todos
+    let lists
+    return mongo.connect().then(_db => {
+      db = _db
+      todos = _db.collection('todos')
+      lists = _db.collection('lists')
+      return lists.update(
+        {wunderlist_id: list.id},
+        {$set: {title: list.title, wunderlist_id: list.id}},
         {upsert: true})
-    }).then(() => {
-      return list_doc
+    }).then(res => {
+      return lists.findOne({wunderlist_id: list.id}, {_id: 1})
+    }).then(list => {
+      return promise_map(tasks, t => {
+        return todos.update(
+          {wunderlist_id: t.id},
+          {$set: {title: t.title, completed: t.completed, starred: t.starred,
+            wunderlist_id: t.id, list: list._id}},
+          {upsert: true})
+      })
+    }).then(updates => {
+      return {items: updates}
     })
   })
 }
