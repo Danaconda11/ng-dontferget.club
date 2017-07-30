@@ -8,6 +8,7 @@ export default class App extends Component {
     this.get_todos = this.get_todos.bind(this)
     this.on_change = this.on_change.bind(this)
     this.on_submit = this.on_submit.bind(this)
+    this.todo_modified = this.todo_modified.bind(this)
   }
   get_todos () {
     fetch('/api/todos')
@@ -21,6 +22,12 @@ export default class App extends Component {
   }
   componentDidMount () {
     this.get_todos()
+  }
+  todo_modified (updated) {
+    let todos = this.state.todos.map(todo => {
+      return todo._id === updated._id ? updated : todo
+    })
+    this.setState({todos})
   }
   on_change (event) {
     this.setState({value: event.target.value})
@@ -50,8 +57,8 @@ export default class App extends Component {
           <button className="primary">&#43;</button>
         </form>
         <ul className="todo_items">
-        {this.state.todos.map(item =>
-          <ListItem itemRemoved={this.get_todos} key={item._id} item={item}/>)}
+        {this.state.todos.map(todo =>
+          <ListItem modified={this.todo_modified} key={todo._id} todo={todo}/>)}
         </ul>
         <Link to='/account'>view account</Link>
       </div>
