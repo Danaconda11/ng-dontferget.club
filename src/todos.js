@@ -15,9 +15,32 @@ E.insert = todo => {
   })
 }
 
-E.find_all = () => {
+E.find_all = (options = {}) => {
+  let include = options.include || []
+  let stages = []
+  if (include.includes('list')) {
+    stages.push(
+      {
+        $lookup: {
+          from: 'lists',
+          localField: 'list',
+          foreignField: '_id',
+          as: 'list',
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          completed: 1,
+          starred: 1,
+          list: {$arrayElemAt: ['$list', 0]},
+        },
+      }
+    )
+  }
   return mongo.connect().then(db => {
-    return db.collection('todos').find({}).toArray()
+    return db.collection('todos').aggregate(stages).toArray()
   })
 }
 

@@ -13,7 +13,7 @@ E.add = (req, res, next) => {
 }
 
 E.get_all = (req, res, next) => {
-  return todos.find_all().then(docs => {
+  return todos.find_all({include: ['list']}).then(docs => {
     res.json(docs)
   }).catch(err => {
     next(err)

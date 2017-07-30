@@ -19,6 +19,19 @@
   margin: 0;
 }
 .todo_items { padding: 0; margin: 0 0 1em 0; }
-.todo_item { list-style: none; padding: 1em; border-bottom: 1px solid #ccc; }
+.todo_item {
+  display: flex;
+  list-style: none;
+  padding: 1em;
+  border-bottom: 1px solid #ccc;
+}
 .todo_item input:not([type]) { margin: 0; padding: 0; border: 0; }
 .todo_item.completed { color: #999; text-decoration: line-through; }
+a.list_link, a.list_link:hover, a.list_link:visited {
+  display: inline-block;
+  margin-left: auto;
+  text-decoration: none;
+  font-size: 80%;
+  border-radius: 5px;
+  padding: 0.25em .5em;
+}

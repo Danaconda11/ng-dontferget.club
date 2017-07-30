@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import keys from './keys'
 
 export default class ListItem extends Component {
@@ -71,6 +72,9 @@ export default class ListItem extends Component {
           <input ref="edit_todo_title" onBlur={this.save_title}
             onKeyDown={this.cancel_edit}
             defaultValue={todo.title}/>}
+        {todo.list &&
+          <Link to={`/lists/${todo.list._id}`} className="button list_link">
+            {todo.list.title}</Link>}
       </li>
     )
   }
