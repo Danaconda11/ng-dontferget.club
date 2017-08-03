@@ -7,9 +7,8 @@ import Chess from './chess.jsx'
 import Account from './account.jsx'
 import createBrowserHistory from 'history/createBrowserHistory'
 
-let newHistory = createBrowserHistory()
 let app =
-<Router history={newHistory}>
+<Router history={createBrowserHistory()}>
   <div className="app">
     <Nav/>
     <Route path="/lists" component={TodoApp}/>

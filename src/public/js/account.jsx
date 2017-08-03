@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import _ from 'lodash'
+import api_request from './api.js'
 
 export default class AccountPage extends Component {
   constructor (props) {
@@ -10,7 +11,7 @@ export default class AccountPage extends Component {
   }
   load_user () {
     // TODO josh: use api module when available
-    fetch('/api/account').then(res => res.json())
+    api_request('/account').then(res => res.json())
     .then(user => this.setState({user}))
     .catch(err => console.error(err))
   }
@@ -18,13 +19,9 @@ export default class AccountPage extends Component {
     event.preventDefault()
     event.stopPropagation()
     this.setState({sync_status: 'Syncing...', sync_error: null})
-    let headers = new Headers()
-    headers.append('Content-Type', 'application/json')
-    // TODO josh: use api module when available
-    fetch('/api/lists/import', {
+    api_request('/lists/import', {
       method: 'POST',
-      body: JSON.stringify({source: 'wunderlist'}),
-      headers,
+      body: {source: 'wunderlist'},
     })
     .then(res => res.json())
     .then(data => {

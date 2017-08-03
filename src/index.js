@@ -18,9 +18,9 @@ app.use(session({resave: false, saveUninitialized: false,
   secret: config.session_secret}))
 app.use(passport.initialize())
 app.use(passport.session())
-if (config.auto_login) {
-  app.use(util.auto_login)
-}
+// if (config.auto_login) {
+//   app.use(util.auto_login)
+// }
 app.use(body_parser.urlencoded({extended: false}))
 app.use(body_parser.json())
 app.get('/', auth.require_auth({otherwise: '/login'}),

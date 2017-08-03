@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import ListItem from './list-item.jsx'
+import api_request from './api.js'
 
 export default class App extends Component {
   constructor (props) {
@@ -11,7 +12,7 @@ export default class App extends Component {
     this.todo_modified = this.todo_modified.bind(this)
   }
   get_todos () {
-    fetch('/api/todos', {credentials: 'include'})
+    api_request('/todos')
     .then(res => {
       return res.json()
     }).then(todos => {
@@ -35,13 +36,9 @@ export default class App extends Component {
   on_submit (event) {
     event.preventDefault()
     this.refs.todo_input.value = ''
-    let headers = new Headers()
-    headers.append('Content-Type', 'application/json')
-    fetch('/api/todos', {
+    api_request('/todos', {
       method: 'POST',
-      body: JSON.stringify({title: this.state.value, completed: false}),
-      headers,
-      credentials: 'include'
+      body: {title: this.state.value, completed: false},
     }).then(() => {
       this.get_todos()
     }).catch(err => {

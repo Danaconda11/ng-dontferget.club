@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import keys from './keys'
+import api_request from './api.js'
 
 export default class ListItem extends Component {
   constructor (props) {
@@ -18,13 +19,9 @@ export default class ListItem extends Component {
     this.setState({edit: false, todo: props.todo})
   }
   update (update) {
-    // TODO josh: replace with api module when available
-    let headers = new Headers()
-    headers.append('Content-Type', 'application/json')
-    fetch(`/api/todos/${this.state.todo._id}`, {
+    api_request(`/todos/${this.state.todo._id}`, {
       method: 'PATCH',
-      headers,
-      body: JSON.stringify(update),
+      body: update,
     })
     .then(res => {
       if (res.status !== 200) {
