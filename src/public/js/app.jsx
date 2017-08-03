@@ -11,7 +11,7 @@ export default class App extends Component {
     this.todo_modified = this.todo_modified.bind(this)
   }
   get_todos () {
-    fetch('/api/todos')
+    fetch('/api/todos', {credentials: 'include'})
     .then(res => {
       return res.json()
     }).then(todos => {
@@ -41,6 +41,7 @@ export default class App extends Component {
       method: 'POST',
       body: JSON.stringify({title: this.state.value, completed: false}),
       headers,
+      credentials: 'include'
     }).then(() => {
       this.get_todos()
     }).catch(err => {
