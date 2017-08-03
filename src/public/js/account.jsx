@@ -10,7 +10,6 @@ export default class AccountPage extends Component {
     this.load_user()
   }
   load_user () {
-    // TODO josh: use api module when available
     api_request('/account').then(res => res.json())
     .then(user => this.setState({user}))
     .catch(err => console.error(err))
