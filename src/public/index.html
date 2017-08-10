@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="lists">
   <head>
     <meta charset="utf-8">
-    <script src="/node_modules/angular/angular.js"></script>
+    <script src="/angular/angular.js"></script>
+    <script src="/js/lists.js"></script>
     <title></title>
   </head>
   <body>
-
+    <h1 ng-controller="listsController as LC">{{LC.value}}</h1>
   </body>
 </html>

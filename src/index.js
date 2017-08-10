@@ -13,7 +13,7 @@ const todos = require('./route_handlers/todos')
 const chess = require('./route_handlers/lichess')
 
 let app = express()
-app.use(files.static())
+app.use(files.public(), files.node_modules())
 app.use(session({resave: false, saveUninitialized: false,
   secret: config.session_secret}))
 app.use(passport.initialize())
