@@ -3,10 +3,16 @@
   <head>
     <meta charset="utf-8">
     <script src="/angular/angular.js"></script>
+    <script src="/js/api_module.js"></script>
     <script src="/js/lists.js"></script>
     <title></title>
   </head>
   <body>
-    <h1 ng-controller="listsController as LC">{{LC.value}}</h1>
+    <div  ng-controller="listsController as LC">
+      <h1>{{LC.value}}</h1>
+      <ul>
+        <li ng-repeat="todo in LC.todos">{{todo.title}}</li>
+      </ul>
+    </div>
   </body>
 </html>
