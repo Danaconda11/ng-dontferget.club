@@ -11,7 +11,6 @@ angular.module('lists', ['api_module'])
 .controller('todoController', ['api_service', '$scope', function(api_service, $scope) {
   $scope.add_todo = function() {
     $scope.text = this.text
-    console.log($scope.text);
     api_service({
       url: 'api/todos',
       method: 'POST',
