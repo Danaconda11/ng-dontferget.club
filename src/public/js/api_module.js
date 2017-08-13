@@ -1,10 +1,10 @@
 var api_module = angular.module('api_module', [])
 api_module.factory('api_service', ['$http', function($http) {
-  return function (url, options = {}) {
+  return function (options = {}) {
     let fetch_options = {
       method: options.method || 'GET',
       credentials: 'include',
-      url: url
+      url: options.url
     }
     if
     (
@@ -12,11 +12,12 @@ api_module.factory('api_service', ['$http', function($http) {
       options.method == 'PATCH' ||
       options.method == 'POST'
     ) {
-      let headers = new Headers()
-      headers.append('Content-Type', 'application/json')
-      fetch_options.body = JSON.stringify(options.body)
-      fetch_options.headers = headers
+      fetch_options.data = JSON.stringify(options.data)
+      fetch_options.headers = {
+        'Content-Type': 'application/json'
+      }
     }
+    console.log(fetch_options);
     return $http(fetch_options)
   }
 }])

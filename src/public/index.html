@@ -5,13 +5,21 @@
     <script src="/angular/angular.js"></script>
     <script src="/js/api_module.js"></script>
     <script src="/js/lists.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/2.3.3/mini-default.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <title></title>
   </head>
   <body class='frivolous'>
-    <div  ng-controller="listsController as LC">
-      <h1>{{LC.value}}</h1>
+    <div>
+      <form ng-submit="add_todo()" ng-controller='todoController as todo_cont'>
+        <input type="text" name="text" ng-model='text'>
+        <input type="submit" value="add">
+      </form>
+    </div>
+    <div ng-controller="listsController as lists_cont" class="list-container">
+      <h1>{{lists_cont.value}}</h1>
       <ul>
-        <li ng-repeat="todo in LC.todos">{{todo.title}}</li>
+        <li ng-repeat="todo in lists_cont.todos">{{todo.title}}</li>
       </ul>
     </div>
   </body>
