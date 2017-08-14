@@ -1,5 +1,5 @@
-var api_module = angular.module('api_module', [])
-api_module.factory('api_service', ['$http', function($http) {
+angular.module('lists')
+.factory('api_service', ['$http', function($http) {
   return function (options = {}) {
     let fetch_options = {
       method: options.method || 'GET',
@@ -17,7 +17,6 @@ api_module.factory('api_service', ['$http', function($http) {
         'Content-Type': 'application/json'
       }
     }
-    console.log(fetch_options);
     return $http(fetch_options)
   }
 }])

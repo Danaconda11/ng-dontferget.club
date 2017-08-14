@@ -3,24 +3,21 @@
   <head>
     <meta charset="utf-8">
     <script src="/angular/angular.js"></script>
-    <script src="/js/api_module.js"></script>
     <script src="/js/lists.js"></script>
+    <script src="/js/api_module.js"></script>
+    <script src="/js/add_todo_component.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mini.css/2.3.3/mini-default.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <title></title>
   </head>
   <body class='frivolous'>
     <div>
-      <form ng-submit="add_todo()" ng-controller='todoController as todo_cont'>
-        <input type="text" name="text" ng-model='text'>
-        <input type="submit" value="add">
-      </form>
+      <todo-form></todo-form>
     </div>
-    <div ng-controller="listsController as lists_cont" class="list-container">
-      <h1>{{lists_cont.value}}</h1>
-      <ul>
-        <li ng-repeat="todo in lists_cont.todos">{{todo.title}}</li>
-      </ul>
+
+    <div>
+      <h1>Todos:</h1>
+      <todos-list></todos-list>
     </div>
   </body>
 </html>
